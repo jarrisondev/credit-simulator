@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simulador Préstamos | Taller 3 LW III</title>
+    <link rel="stylesheet" href="/style/bootstrap/css/bootstrap.min.css" />
+    <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container bg-light mt-5 vh-100">
+      <div class="d-flex justify-content-center">
+        <img class="w-15" src="./assets/favicon.svg" alt="logo" />
+      </div>
+      <form class="row mt-5" onsubmit="sendForm(event)">
+        <div class="col-6">
+          <label class="form-label">Nombre</label>
+          <input
+            id="name"
+            name="text"
+            required
+            type="text"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Dirección</label>
+          <input
+            id="address"
+            required
+            minlength="10"
+            max="45"
+            type="text"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Teléfono</label>
+          <input
+            id="phoneNumber"
+            name="phone"
+            required
+            type="text"
+            maxlength="12"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Correo</label>
+          <input
+            id="email"
+            name="email"
+            required
+            type="email"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Ingresos Mensuales</label>
+          <input
+            id="incomes"
+            name="number"
+            type="text"
+            required
+            maxlength="13"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Otros Ingresos</label>
+          <input
+            id="anotherIncomes"
+            name="number"
+            type="text"
+            required
+            maxlength="13"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Gastos Mensuales</label>
+          <input
+            id="expenses"
+            name="number"
+            type="text"
+            required
+            maxlength="13"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Valor a Solicitar</label>
+          <input
+            id="loan"
+            name="number"
+            type="text"
+            required
+            maxlength="13"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6">
+          <label class="form-label">Destino del Credito</label>
+          <select name="select" id="loanDestination" class="form-select input">
+            <option value="seleccione opción" selected>
+              SELECCIONE OPCIÓN
+            </option>
+            <option value="Gastos Personales">Gastos Personales</option>
+            <option value="Inversión">Inversión</option>
+            <option value="Vacaciones">Vacaciones</option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label class="form-label">Plazo en Meses</label>
+          <input
+            id="term"
+            name="phone"
+            required
+            type="text"
+            maxlength="2"
+            class="form-control input"
+          />
+        </div>
+        <div class="col-6 mt-4">
+          <label class="form-check-label me-2" for="lifeInsurance"
+            >SEGURO DE VIDA</label
+          >
+          <input
+            name="check"
+            type="checkbox"
+            class="form-check-input input"
+            value="6400"
+            id="lifeInsurance"
+          />
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary mt-3 w-100">
+            Enviar
+          </button>
+        </div>
+      </form>
+      <div class="row mt-3">
+        <div class="col-6">
+          <p class="result" id="nameR">NOMBRE: <span></span></p>
+          <p class="result" id="emailR">CORREO: <span></span></p>
+          <p class="result" id="loanR">VALOR SOLICITADO: <span></span></p>
+        </div>
+        <div class="col-6">
+          <p class="result" id="loanDestinationR">
+            DESTINO DEL CREDITO: <span></span>
+          </p>
+          <p class="result" id="termR">PLAZO: <span></span></p>
+          <p class="result" id="lifeInsuranceR">
+            VALOR MES SEGURO DE VIDA: <span></span>
+          </p>
+        </div>
+      </div>
+      <table class="table">
+        <thead>
+          <th>PERÍODO</th>
+          <th>ABONO CAPITAL</th>
+          <th>INTERESES</th>
+          <th>CUOTA CON SEGURO DE VIDA</th>
+          <th>SALDO CAPITAL</th>
+        </thead>
+      </table>
+    </div>
+    <script src="/index.js"></script>
+  </body>
+</html>
