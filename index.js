@@ -9,7 +9,8 @@ let user = {
   loan: null,
   loanDestination: null,
   term: null,
-  lifeInsurance: 0,
+  lifeInsurance: null,
+  taxe: null,
 }
 
 // Inputs scripts
@@ -57,20 +58,16 @@ inputs.forEach((input) => {
   input.addEventListener('blur', checkForm)
 })
 //save the data inputs in the user object
-const saveData = (input) => {
-  //
-  if (input.name === 'number') {
-    let number = input.value.replace(/,/g, '')
-    user[input.id] = parseInt(number)
-  } else if (input.id === 'term') {
-    user[input.id] = parseInt(input.value)
-  } else if (input.name === 'check') {
-    if (input.checked) {
-      user[input.id] = parseInt(input.value)
-    }
-  } else {
-    user[input.id] = input.value
-  }
+const saveDataInputs = (input) => {
+  let value = input.value.replace(/,/g, '')
+
+  if (input.name === 'check') user[input.id] = input.checked ? 0.07 : 0
+  else if (!isNaN(value)) user[input.id] = parseInt(value)
+  else user[input.id] = input.value
+
+  if (user.loanDestination === 'Gastos Personales') user.taxe = 20
+  if (user.loanDestination === 'Inversión') user.taxe = 15
+  if (user.loanDestination === 'Vacaciones') user.taxe = 25
 }
 // check and send the form
 function sendForm(event) {
@@ -84,33 +81,59 @@ function sendForm(event) {
       input.value === 'seleccione opción'
     )
       validation = false
-    else saveData(input)
+    else saveDataInputs(input)
   })
 
   if (validation) {
-    result()
-    // let incomes = (user.incomes + user.anotherIncomes) / 2
-    // if (user.loan < incomes) {
-    // }else{
-    //   alert('la cuota es ')
-    // event.target.reset()
-    // }
+    if (generateResults()) {
+      generateTable()
+      // event.target.reset()
+    } else {
+      alert('No cumple con los requisitos necesarios para el prestamo')
+    }
   } else {
     alert('Complete el formulario')
   }
 }
 // -------------------------------------------------------
-//  results scripts
 
-const result = () => {
+let results = {
+  loan: null,
+  taxes: null,
+  lifeInsurance: null,
+  payment: null,
+  paymentLifeInsure: null,
+}
+
+// -------------------------------------------------------
+//  generate results scripts
+const generateResults = () => {
+  results.loan = user.loan
+  results.lifeInsurance = parseInt((user.loan * user.lifeInsurance) / 100)
+  results.payment = parseInt(user.loan / user.term)
+  results.paymentLifeInsure = results.payment + results.lifeInsurance
+  results.taxes = parseInt((results.payment * user.taxe) / 100)
+  results.payment += results.taxes
+
+  console.log(results)
+  if ((user.incomes + user.anotherIncomes) / 2 <= results.payment) return true
+  else return false
+}
+
+// -------------------------------------------------------
+//  show results scripts
+
+const generateTable = () => {
   let fields = document.querySelectorAll('.result')
+  //Declare and print the results
   let result = {
     nameR: user.name,
     emailR: user.email,
-    loanR: user.loan,
-    loanDestinationR: user.loanDestination,
+    loanR: formatNumber(user.loan),
     termR: user.term,
-    lifeInsuranceR: user.lifeInsurance,
+    loanDestinationR: user.loanDestination,
+    taxesR: user.taxe,
+    lifeInsuranceR: formatNumber(results.lifeInsurance),
   }
   fields.forEach((field) => {
     field.children[0].innerHTML = result[field.id]
@@ -121,5 +144,3 @@ const formatNumber = (number) => {
   number = String(number).replace(/\D/g, '')
   return number === '' ? number : Number(number).toLocaleString()
 }
-
-// string = string.replace(/,/g, '')

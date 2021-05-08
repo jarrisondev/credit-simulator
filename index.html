@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="./style/bootstrap/css/bootstrap.min.css" />
     <link rel="shortcut icon" href="./assets/favicon.svg" type="image/x-icon" />
   </head>
-  <body>
-    <div class="container bg-light mt-5 vh-100">
+  <body class="bg-dark">
+    <div class="container bg-dark text-light mt-5 min-vh-100">
       <div class="d-flex justify-content-center">
         <img class="w-15" src="./assets/favicon.svg" alt="logo" />
       </div>
@@ -144,19 +144,20 @@
         <div class="col-6">
           <p class="result" id="nameR">NOMBRE: <span></span></p>
           <p class="result" id="emailR">CORREO: <span></span></p>
-          <p class="result" id="loanR">VALOR SOLICITADO: <span></span></p>
+          <p class="result" id="loanR">VALOR SOLICITADO: $<span></span></p>
+          <p class="result" id="termR">PLAZO: <span></span> MESES</p>
         </div>
         <div class="col-6">
           <p class="result" id="loanDestinationR">
             DESTINO DEL CREDITO: <span></span>
           </p>
-          <p class="result" id="termR">PLAZO: <span></span></p>
+          <p class="result" id="taxesR">TASA DE INTERES: <span></span>%</p>
           <p class="result" id="lifeInsuranceR">
-            VALOR MES SEGURO DE VIDA: <span></span>
+            VALOR MES SEGURO DE VIDA: $<span></span>
           </p>
         </div>
       </div>
-      <table class="table">
+      <table class="table text-light">
         <thead>
           <th>PERÍODO</th>
           <th>ABONO CAPITAL</th>
@@ -164,6 +165,7 @@
           <th>CUOTA CON SEGURO DE VIDA</th>
           <th>SALDO CAPITAL</th>
         </thead>
+        <tbody id="table"></tbody>
       </table>
     </div>
     <script src="/index.js"></script>
