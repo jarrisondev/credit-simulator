@@ -113,9 +113,8 @@ const generateResults = () => {
   results.payment = parseInt(user.loan / user.term)
   results.paymentLifeInsure = results.payment + results.lifeInsurance
   results.taxes = parseInt((results.payment * user.taxe) / 100)
-  results.payment += results.taxes
+  results.total = results.taxes + results.paymentLifeInsure
 
-  console.log(results)
   if ((user.incomes + user.anotherIncomes) / 2 <= results.payment) return true
   else return false
 }
@@ -138,8 +137,38 @@ const generateTable = () => {
   fields.forEach((field) => {
     field.children[0].innerHTML = result[field.id]
   })
-}
 
+  //generate table
+  let tableData = [
+    '',
+    results.payment,
+    results.taxes,
+    results.paymentLifeInsure,
+    results.loan,
+    results.total,
+  ]
+
+  //dekete and create a tbody
+  table.removeChild(table.children[1])
+  let tbody = document.createElement('tbody')
+  table.appendChild(tbody)
+
+  for (let i = 0; i < user.term; i++) {
+    let tr = document.createElement('tr')
+
+    tableData.forEach((data, index) => {
+      let td = document.createElement('td')
+      let text = document.createTextNode(
+        index === 0 ? `${i + 1}` : `$${formatNumber(data)}`
+      )
+      tr.appendChild(td)
+      td.appendChild(text)
+    })
+
+    table.children[1].appendChild(tr)
+  }
+}
+// ------------------------------------------------------
 const formatNumber = (number) => {
   number = String(number).replace(/\D/g, '')
   return number === '' ? number : Number(number).toLocaleString()
