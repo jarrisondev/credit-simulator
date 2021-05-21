@@ -1,14 +1,14 @@
 .input-correct {
-  background-color: #94ebcd;
+	background-color: #94ebcd;
 }
 
 .input-incorrect {
-  background-color: #fb3640;
+	background-color: #fb3640;
 }
 
 body {
-  background-color: #212529;
-  background-image: radial-gradient(#3d3d3d 1px, transparent 0);
-  background-size: 40px 40px;
-  background-position: 0 0, 20px 20px;
+	background-color: #212529;
+	background-image: radial-gradient(#3d3d3d 1px, transparent 0);
+	background-size: 40px 40px;
+	background-position: 0 0, 20px 20px;
 }
