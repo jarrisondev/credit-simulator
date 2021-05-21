@@ -103,6 +103,7 @@ let results = {
 	lifeInsurance: null,
 	payment: null,
 	paymentLifeInsure: null,
+	total: null,
 }
 
 // -------------------------------------------------------
@@ -148,22 +149,30 @@ const generateTable = () => {
 		results.total,
 	]
 
-	//create a tbody tag
+	//delete and create a tbody tag
+	table.removeChild(table.children[1])
 	let tbody = document.createElement('tbody')
 	table.appendChild(tbody)
+	let restante = 0
 
 	for (let i = 0; i < user.term; i++) {
 		let tr = document.createElement('tr')
+
+		// changes the values of the last payment if is neccesary
+		if (i === user.term - 1) {
+			tableData[1] += restante
+			tableData[5] = tableData[1] + results.lifeInsurance + tableData[2]
+		}
 		// decrement the loan
 		tableData[4] -= tableData[1]
 
 		// conditional for check that the last payment close in zero
+		// and save the value in restante
 		if (i === user.term - 2) {
-			if (tableData[4] - tableData[1] !== 0) {
-				let restante = tableData[4] - tableData[1]
-				tableData[1] += restante
-			}
+			if (tableData[4] - tableData[1] !== 0)
+				restante = tableData[4] - tableData[1]
 		}
+
 		// Generate the tr and push the data
 		tableData.forEach((data, index) => {
 			let td = document.createElement('td')
